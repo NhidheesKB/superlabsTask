@@ -15,7 +15,7 @@ importers:
         specifier: ^7.7.0
         version: 7.7.0(prisma@7.7.0(@types/react@19.2.14)(magicast@0.5.2)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3))(typescript@5.9.3)
       '@scalar/nuxt':
-        specifier: 0.6.23
+        specifier: ^0.6.23
         version: 0.6.23(@vue/compiler-sfc@3.5.32)(magicast@0.5.2)(tailwindcss@4.2.2)(typescript@5.9.3)
       '@tailwindcss/vite':
         specifier: ^4.2.2
@@ -24,7 +24,7 @@ importers:
         specifier: ^4.4.2
         version: 4.4.2(@babel/core@7.29.0)(@babel/plugin-syntax-jsx@7.28.6(@babel/core@7.29.0))(@electric-sql/pglite@0.4.1)(@emnapi/core@1.10.0)(@emnapi/runtime@1.10.0)(@parcel/watcher@2.5.6)(@types/node@25.6.0)(@vue/compiler-sfc@3.5.32)(cac@6.7.14)(db0@0.3.4(@electric-sql/pglite@0.4.1)(mysql2@3.15.3))(ioredis@5.10.1)(lightningcss@1.32.0)(magicast@0.5.2)(mysql2@3.15.3)(rollup-plugin-visualizer@7.0.1(rollup@4.60.1))(rollup@4.60.1)(srvx@0.11.15)(terser@5.46.1)(tsx@4.21.0)(typescript@5.9.3)(vite@7.3.2(@types/node@25.6.0)(jiti@2.6.1)(lightningcss@1.32.0)(terser@5.46.1)(tsx@4.21.0)(yaml@2.8.3))(yaml@2.8.3)
       nuxt-csurf:
-        specifier: 1.6.5
+        specifier: ^1.6.5
         version: 1.6.5(magicast@0.5.2)
       pg:
         specifier: ^8.20.0
@@ -38,6 +38,9 @@ importers:
       vue-router:
         specifier: ^5.0.4
         version: 5.0.4(@vue/compiler-sfc@3.5.32)(vue@3.5.32(typescript@5.9.3))
+      zod:
+        specifier: ^4.3.6
+        version: 4.3.6
     devDependencies:
       '@types/pg':
         specifier: ^8.20.0
@@ -45,6 +48,9 @@ importers:
       dotenv:
         specifier: ^17.4.2
         version: 17.4.2
+      nuxt-file-storage:
+        specifier: ^0.3.2
+        version: 0.3.2(magicast@0.5.2)
       prisma:
         specifier: ^7.7.0
         version: 7.7.0(@types/react@19.2.14)(magicast@0.5.2)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@5.9.3)
@@ -3580,6 +3586,9 @@ packages:
 
   nuxt-csurf@1.6.5:
     resolution: {integrity: sha512-/DMNTON8LIVhntamKbBmAuM879B0QnuSJa7ZAkmkZe+21m+1QGcjVUxtSkizaM48NUvkuAGYOG0ncn+kqEgrzw==}
+
+  nuxt-file-storage@0.3.2:
+    resolution: {integrity: sha512-ET2bg2dSiSqiuos017h/6e+zE7BNvdugsppOBCJMfwz6Jvqg+So0QUELmNGloJC2y+CEt2fe09tvtHeqfFwP/w==}
 
   nuxt@4.4.2:
     resolution: {integrity: sha512-iWVFpr/YEqVU/CenqIHMnIkvb2HE/9f+q8oxZ+pj2et+60NljGRClCgnmbvGPdmNFE0F1bEhoBCYfqbDOCim3Q==}
@@ -9050,6 +9059,13 @@ snapshots:
       '@nuxt/kit': 3.21.2(magicast@0.5.2)
       defu: 6.1.7
       uncsrf: 1.2.0
+    transitivePeerDependencies:
+      - magicast
+
+  nuxt-file-storage@0.3.2(magicast@0.5.2):
+    dependencies:
+      '@nuxt/kit': 4.4.2(magicast@0.5.2)
+      defu: 6.1.7
     transitivePeerDependencies:
       - magicast
 

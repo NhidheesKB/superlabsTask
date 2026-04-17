@@ -5,9 +5,14 @@ export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: true, vscode: { enabled: false } },
   css: ["./app/assets/css/main.css"],
-  modules: ["@scalar/nuxt", "nuxt-csurf"],
-  nitro: { experimental: { openAPI: true } },
-
+  modules: ["@scalar/nuxt", "nuxt-csurf", "nuxt-file-storage"],
+  nitro: {
+    experimental: { openAPI: true },
+    openAPI: { ui: { scalar: { route: "/docs" } } },
+  },
+  fileStorage: {
+    mount: "./server/images/product",
+  },
   vite: {
     plugins: [tailwindcss({ optimize: { minify: true } })],
   },
