@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   modules: ["@scalar/nuxt", "nuxt-csurf", "nuxt-file-storage"],
   nitro: {
     experimental: { openAPI: true },
-    openAPI: { ui: { scalar: { route: "/docs" } } },
+    openAPI: { ui: { scalar: { route: "/docs"} } },
   },
   fileStorage: {
     mount: "./server/images/product",
