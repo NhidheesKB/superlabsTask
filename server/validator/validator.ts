@@ -13,3 +13,7 @@ export const addProductValidator = z.object({
   description:z.string(),
   price:z.number()
 });
+
+export const listproductValidator=z.object({
+  id:z.number().min(1),
+})

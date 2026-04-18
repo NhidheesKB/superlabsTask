@@ -11,7 +11,7 @@ export default defineNuxtConfig({
     openAPI: { ui: { scalar: { route: "/docs"} } },
   },
   fileStorage: {
-    mount: "./uploads/images/product",
+    mount: "./storage/uploads/products",
   },
   vite: {
     plugins: [tailwindcss({ optimize: { minify: true } })],

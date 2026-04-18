@@ -4,7 +4,7 @@
   >
     <div class="relative overflow-hidden bg-gray-100 aspect-square">
       <img
-        :src="product.image"
+        :src="`/uploads/${product.images}`"
         :alt="product.name"
         class="w-full h-full object-cover group-hover:scale-105 transition duration-500"
       />
@@ -74,8 +74,8 @@ defineProps<{
     id: number
     name: string
     description: string
-    price: number
-    image: string
+    price: string
+    images: string
     stock: number
   }
 }>()
