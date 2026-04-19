@@ -1,25 +1,25 @@
-import { listproductValidator } from "#server/validator/validator"
+import { searchProductValidator } from "#server/validator/validator"
 import ProductService from "#server/service/productService"
 const product=new ProductService()
 defineRouteMeta({
   openAPI: {
     tags: ["Products"],
-    summary: "List Products",
+    summary: "Search Products",
     description:
-      "Get products using cursor-based pagination. Send last product id to load next set of products.",
+      "Search products by product name or description using keyword text.",
     requestBody: {
       required: true,
       content: {
         "application/json": {
           schema: {
             type: "object",
-            required: ["id"],
+            required: ["search"],
             properties: {
-              id: {
-                type: "number",
-                example: 1,
+              search: {
+                type: "string",
+                example: "vitamin c",
                 description:
-                  "Starting product ID cursor. First request usually send 1"
+                  "Search keyword for matching product name or description"
               }
             }
           }
@@ -28,7 +28,7 @@ defineRouteMeta({
     },
     responses: {
       200: {
-        description: "Products fetched successfully",
+        description: "Matching products fetched successfully",
         content: {
           "application/json": {
             schema: {
@@ -37,17 +37,27 @@ defineRouteMeta({
                 type: "object",
                 properties: {
                   id: { type: "number", example: 1 },
-                  name: { type: "string", example: "Vitamin C Serum" },
+                  name: {
+                    type: "string",
+                    example: "Vitamin C Face Serum"
+                  },
                   description: {
                     type: "string",
-                    example: "Brightening skincare serum"
+                    example: "Brightens skin and improves tone"
                   },
-                  price: { type: "string", example: "799.00" },
+                  price: {
+                    type: "string",
+                    example: "899.00"
+                  },
                   images: {
                     type: "string",
-                    example: "https://res.cloudinary.com/demo/image.jpg"
+                    example:
+                      "https://res.cloudinary.com/demo/image.jpg"
                   },
-                  stock: { type: "number", example: 20 },
+                  stock: {
+                    type: "number",
+                    example: 25
+                  },
                   created_at: {
                     type: "string",
                     format: "date-time"
@@ -68,7 +78,8 @@ defineRouteMeta({
     }
   }
 });
+
 export default defineEventHandler(async(event)=>{
-    const { id}=await readValidatedBody(event,listproductValidator.parse)
-    return await product.listProduct(id)
+    const {search}=await readValidatedBody(event,searchProductValidator.parse)
+    return await product.searchProduct(search)
 })

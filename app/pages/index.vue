@@ -16,6 +16,14 @@
             @input="handleFileInput"
             class="w-full border rounded-lg px-3 py-2"
           />
+          <textarea v-else-if ="field.type=='textarea'"
+          :type="field.type"
+          v-model="form[field.model]"
+            required
+            :step="field.model == 'price' ? 'any' : ''"
+            :placeholder="`Enter the ${field.label}`"
+            class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+          />
           <input
             v-else
             v-model="form[field.model]"
@@ -42,8 +50,10 @@
 
 <script setup lang="ts">
 import { reactive, ref } from "vue";
+
 const { $csrfFetch } = useNuxtApp();
-const { handleFileInput, files } = useFileStorage({ clearOldFiles: false });
+
+const selectedFile = ref<File | null>(null);
 
 const form: Record<string, any> = reactive({
   name: "",
@@ -52,41 +62,58 @@ const form: Record<string, any> = reactive({
   description: "",
   price: 1.0,
 });
-const error = ref<Record<keyof typeof form, string>>({});
+
+const error = ref<Record<string, string>>({});
+
 const FormFields = [
-  {
-    label: "Product Name",
-    model: "name",
-    type: "text",
-  },
+  { label: "Product Name", model: "name", type: "text" },
   { label: "Product Image (JPG/PNG)", model: "image", type: "file" },
-  { label: "Product Description", model: "description", type: "text" },
-  {
-    label: "Product Stock",
-    model: "stock",
-    type: "number",
-  },
-  { label: "Product price", type: "number", model: "price" },
+  { label: "Product Description", model: "description", type: "textarea" },
+  { label: "Product Stock", model: "stock", type: "number" },
+  { label: "Product Price", model: "price", type: "number" },
 ];
-const handleSubmit = async () => {
-  form.image = files.value[0];
-  if (Object.keys(files.value).length == 0) {
+
+function handleFileInput(event: Event) {
+  const input = event.target as HTMLInputElement;
+  const file = input.files?.[0];
+
+  if (!file) return;
+
+  if (!["image/png", "image/jpeg"].includes(file.type)) {
+    error.value.image = "Only JPG / PNG allowed";
+    selectedFile.value = null;
+    return;
+  }
+
+  error.value.image = "";
+  selectedFile.value = file;
+}
+
+async function handleSubmit() {
+  if (!selectedFile.value) {
     error.value.image = "Image is required";
     return;
   }
+
+  const formData = new FormData();
+
+  formData.append("name", form.name);
+  formData.append("description", form.description);
+  formData.append("stock", form.stock);
+  formData.append("price", form.price);
+  formData.append("image", selectedFile.value);
+
   try {
-    const response=await $csrfFetch("/api/add-product", {
+    await $csrfFetch("/api/add-product", {
       method: "POST",
-      body: form,
+      body: formData,
     });
 
     alert("Product created!");
-    files.value = {};
-    form.name = "";
-    form.stock = 0;
-    form.image = null;
+    navigateTo('/product')
+
   } catch (err) {
     console.error(err);
   }
-};
+}
 </script>
