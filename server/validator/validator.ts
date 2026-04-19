@@ -2,7 +2,7 @@ import z from "zod";
 
 export const addProductValidator = z.object({
   name: z.string().trim(),
-  stock: z.coerce.number().min(0).positive(),
+  stock: z.coerce.number().min(0),
   description:z.string(),
   price:z.coerce.number().min(1).positive()
 });
