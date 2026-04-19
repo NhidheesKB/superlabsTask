@@ -1,8 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import tailwindcss from "@tailwindcss/vite";
-
+import { resolve } from "path"
 export default defineNuxtConfig({
-  compatibilityDate: "2025-07-15",
   devtools: { enabled: true, vscode: { enabled: false } },
   css: ["./app/assets/css/main.css"],
   modules: ["@scalar/nuxt", "nuxt-csurf", "nuxt-file-storage"],
@@ -11,7 +10,7 @@ export default defineNuxtConfig({
     openAPI: { ui: { scalar: { route: "/docs"} } },
   },
   fileStorage: {
-    mount: "./storage/uploads/products",
+    mount: resolve("./storage/uploads/products"),
   },
   vite: {
     plugins: [tailwindcss({ optimize: { minify: true } })],
