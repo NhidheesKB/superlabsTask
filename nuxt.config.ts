@@ -3,7 +3,14 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   devtools: { enabled: true, vscode: { enabled: false } },
   css: ["./app/assets/css/main.css"],
-  modules: ["@scalar/nuxt", "nuxt-csurf"],
+  modules: ["@scalar/nuxt", "nuxt-csurf", "nuxt-security"],
+  security:{
+    headers:{
+      contentSecurityPolicy:{
+        "img-src":["self" ,"https://res.cloudinary.com"]
+      }
+    }
+  },
   nitro: {
     experimental: { openAPI: true },
     openAPI: {
